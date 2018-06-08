@@ -28,3 +28,11 @@
 - Завести аккаунт в github и сделать форк репозитория
 - Прогрумить для себя user stories
 - Сделать макет для html страницы в src\client, используя современные стандарты html5, css grid
+
+### Материалы для изучени дома
+
+- http://www.wisdomweb.ru/HTML5/ - html5
+- https://html5book.ru/adaptivnaya-vyorstka-sayta/ - адаптивная верстка
+- https://cssgrid.io/ - css grids
+- https://tuhub.ru/posts/css-grid-complete-guide - css grids
+- https://metanit.com/sharp/tutorial/ - глава 2
