@@ -65,13 +65,14 @@
 3. Создать в серверном приложении утилитный класс, который будет реализовывать функционал:
     - проверять номер карты по алгоритму Луна
     - проверять принадлежит ли карта к Альфа-банку по номеру или нет
-    - определять тип карты (visa\mastercard\maestro\express)
+    - определять тип карты (visa\mastercard\maestro\electron)
 4. ** Написать тесты к функционалу серверного приложения, используя принцип TDD
 5. ** Написать скрипт в scripts для сборки приложения и прогона тестов
 
 ### Материалы для изучени дома
 
 - https://code.visualstudio.com/ - VS Code
+- https://www.microsoft.com/net/learn/get-started/ - .NET Core SDK
 - https://docs.microsoft.com/en-us/dotnet/core/testing/ - unit testing
 - https://xunit.github.io/docs/getting-started-dotnet-core - xunit start
 - https://metanit.com/sharp/tutorial/3.1.php - глава 3
