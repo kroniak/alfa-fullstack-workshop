@@ -75,5 +75,7 @@
 - https://www.microsoft.com/net/learn/get-started/ - .NET Core SDK
 - https://docs.microsoft.com/en-us/dotnet/core/testing/ - unit testing
 - https://xunit.github.io/docs/getting-started-dotnet-core - xunit start
+- https://1drv.ms/b/s!AswfoxlkvkXGgdI1UXmmiY0OvUXpcA - C# 6.0 in a Nutshell
 - https://metanit.com/sharp/tutorial/3.1.php - глава 3
 - https://metanit.com/sharp/tutorial/3.9.php - глава 4
+- https://git-scm.com/book/ru/v2 - Pro Git
