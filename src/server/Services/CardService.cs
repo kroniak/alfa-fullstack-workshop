@@ -16,7 +16,7 @@ namespace Server.Services
         /// Check card number by Alfabank emmiter property
         /// </summary>
         /// <param name="number">card number in any format</param>
-        /// <returns>Return <see langword="true"/> if card was emmited in Alfabank </returns>
+        /// <returns>Return <see langword="true"/> if card was emmited by Alfabank </returns>
         public bool CheckCardEmmiter(string number) => throw new System.NotImplementedException();
 
         /// <summary>
