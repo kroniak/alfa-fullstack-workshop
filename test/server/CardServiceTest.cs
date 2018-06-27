@@ -1,6 +1,5 @@
-using System;
-using Xunit;
 using Server.Services;
+using Xunit;
 
 namespace ServerTest
 {

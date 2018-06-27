@@ -17,7 +17,7 @@ namespace Server.Services
         /// </summary>
         /// <param name="number">card number in any format</param>
         /// <returns>Return <see langword="true"/> if card was emmited in Alfabank </returns>
-        public bool CheckCardEmmiter(string number) => throw new System.NotImplementedException();
+        public bool CheckCardIssuer(string number) => throw new System.NotImplementedException();
 
         /// <summary>
         /// Extract card number
