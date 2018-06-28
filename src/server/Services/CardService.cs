@@ -17,38 +17,53 @@ namespace Server.Services
         public bool CheckCardNumber(string cardNumber)
         {
             string number;
+            // validate card number format
             if (string.IsNullOrEmpty(cardNumber) ||
                 (number = ValidateCardNumberFormat(cardNumber)) == null)
             {
                 return false;
             }
 
-            int sum = 0;
+            // define that card length is even or odd
             int length = number.Length;
-            int i;
-            if (length % 2 == 0)
+            bool isLengthEven = (length % 2) == 0;
+
+            int sum = 0;
+
+            // perform Luhn algorithm
+            int current = 0;
+            for (int i = 0;  i < length; i++)
             {
-                
+                current = number[i];                
+                if ( (((i+1) % 2) == 0) == !isLengthEven)
+                {
+                    current *= 2;
+                    current = (current > 9) ? (current - 9) : current ;
+                }
+                sum += current;
             }
-            for (i < length; i++)
+
+            // check checksum
+            if(sum % 10 == 0)
             {
-                
+                return true;
             }
+            return false;
         }
 
         /// <summary>
-        /// Check card number by Alfabank emmiter property
+        /// Check card number by Alfabank issuer property
         /// </summary>
         /// <param name="cardNumber">card number in any format</param>
-        /// <returns>Return <see langword="true"/> if card was emmited in Alfabank </returns>
+        /// <returns>Return <see langword="true"/> if card was issued in Alfabank </returns>
         public bool CheckCardIssuer(string cardNumber) => throw new System.NotImplementedException();
 
         /// <summary>
         /// Extract card number
         /// </summary>
         /// <param name="cardNumber">card number in any format</param>
-        /// <returns>Return 0 is card is invalid, 1 if card is mastercard, 2 is visa, 3 is maestro, 4 is visa electon</returns>
-        public int CardTypeExtract(string cardNumber) => throw new System.NotImplementedException();
+        /// <returns>return CardPaymentSystem enum with corresponding value</returns>
+        public CardPaymentSystem CardPaymentSystemExtract(string cardNumber) => throw new System.NotImplementedException();
 
         /// <summary>
         /// Removes all symbols except digits. 
@@ -58,6 +73,7 @@ namespace Server.Services
         {
             // remove spaces
             cardNumber = cardNumber.Replace(" ", "");
+
             // use regular expression to detect non digit symbols
             if (digitsMatch.IsMatch(cardNumber))
             {
