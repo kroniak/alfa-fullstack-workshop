@@ -7,10 +7,8 @@ namespace ServerTest
     /// <summary>
     /// Test card payment systems
     /// </summary>
-    public class CardPaymentSystemTests
+    public class CardPaymentSystemTests : BaseTest 
     {
-        private readonly ICardService cardService = new CardService();
-
         #region Positive cases
         /// <summary>
         /// Test all maintainable payment systems

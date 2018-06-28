@@ -6,10 +6,8 @@ namespace ServerTest
     /// <summary>
     /// Test card issuers
     /// </summary>
-    public class CardIssuerTests
+    public class CardIssuerTests : BaseTest
     {
-        private readonly ICardService cardService = new CardService();
-
         #region Positive cases
         /// <summary>
         /// Check valid for alfa bank ard number

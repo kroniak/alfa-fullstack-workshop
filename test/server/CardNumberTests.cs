@@ -5,11 +5,8 @@ namespace ServerTest
     /// <summary>
     /// Test card numbers validation
     /// </summary>
-    public class CardNumberTests
+    public class CardNumberTests : BaseTest
     {
-        private readonly ICardService cardService = new CardService();
-
-
         #region Positive cases
 
         [Theory]
