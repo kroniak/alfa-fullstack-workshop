@@ -2,6 +2,9 @@
 using Xunit;
 namespace ServerTest
 {
+    /// <summary>
+    /// Test card numbers validation
+    /// </summary>
     public class CardNumberTests
     {
         private readonly ICardService cardService = new CardService();

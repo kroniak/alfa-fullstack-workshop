@@ -3,8 +3,10 @@ using Xunit;
 
 namespace ServerTest
 {
-
-    public class CardTypeTests
+    /// <summary>
+    /// Test card issuers
+    /// </summary>
+    public class CardIssuerTests
     {
         private readonly ICardService cardService = new CardService();
 
@@ -13,7 +15,7 @@ namespace ServerTest
         /// Check valid for alfa bank ard number
         /// </summary>
         [Theory]
-        [InlineData("4111 1111 1111 1111")]
+        [InlineData("4390 7700 0000 0123")]
         public void TestAlfaBankCard(string cardNumber)
         {
             bool isAlfaBankIssuer = cardService.CheckCardIssuer(cardNumber);

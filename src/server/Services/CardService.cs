@@ -19,8 +19,7 @@ namespace Server.Services
         {
             string number;
             // validate card number format
-            if (string.IsNullOrEmpty(cardNumber) ||
-                (number = ValidateCardNumberFormat(cardNumber)) == null)
+            if ((number = ValidateCardNumberFormat(cardNumber)) == null)
             {
                 return false;
             }
@@ -61,13 +60,13 @@ namespace Server.Services
         {
             string number;
             // validate card number format
-            if (string.IsNullOrEmpty(cardNumber) ||
-                (number = ValidateCardNumberFormat(cardNumber)) == null)
+            if ((number = ValidateCardNumberFormat(cardNumber)) == null)
             {
                 return false;
             }
 
-            string bin = Regex.Match(cardNumber, "^.{0,6}").Value;
+            // get BIN
+            string bin = Regex.Match(number, "^.{0,6}").Value;
             return Repository.AlfaBankBINs.Contains(bin);
 
         }
@@ -77,14 +76,38 @@ namespace Server.Services
         /// </summary>
         /// <param name="cardNumber">card number in any format</param>
         /// <returns>return CardPaymentSystem enum with corresponding value</returns>
-        public CardPaymentSystem CardPaymentSystemExtract(string cardNumber) => throw new System.NotImplementedException();
+        public CardPaymentSystem CardPaymentSystemExtract(string cardNumber)
+        {
+            string number;
+            // validate card number format
+            if ((number = ValidateCardNumberFormat(cardNumber)) == null)
+            {
+                return CardPaymentSystem.Invalid;
+            }
+
+            // check payment system by first digit of card number 
+            switch (number[0])
+            {
+                case '4':
+                    return CardPaymentSystem.Visa;
+                case '5':
+                    return CardPaymentSystem.Mastercard;
+                default:
+                    return CardPaymentSystem.Invalid;
+            }
+        }
 
         /// <summary>
         /// Removes all symbols except digits. 
         /// </summary>
-        /// <param name="cardNumber">card number without spaces or null if number contains anyu other symbols</param>
+        /// <param name="cardNumber">card number with only digits or null if number contains other symbols except </param>
         private string ValidateCardNumberFormat(string cardNumber)
         {
+            if (string.IsNullOrEmpty(cardNumber))
+            {
+                return null;
+            }
+
             // remove spaces
             cardNumber = cardNumber.Replace(" ", "");
 
