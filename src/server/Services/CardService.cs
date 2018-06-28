@@ -74,10 +74,13 @@ namespace Server.Services
             // remove spaces
             cardNumber = cardNumber.Replace(" ", "");
 
-            // use regular expression to detect non digit symbols
+            // use regular expression to detect non digit symbols and length
             if (digitsMatch.IsMatch(cardNumber))
             {
-                return cardNumber;
+                if (cardNumber.Length >= 13 && cardNumber.Length <= 19)
+                {
+                    return cardNumber;
+                }
             }
 
             return null;

@@ -18,7 +18,7 @@ namespace ServerTest
 
         [Theory]
         [InlineData("4111 1111 1111 1112")]
-        public void TestLuhnAlgorithmWithNotValidCard(string cardNumber)
+        public void TestLuhnAlgorithmWithInvalidCard(string cardNumber)
         {
             Assert.False(cardService.CheckCardNumber(cardNumber));
         }
