@@ -17,13 +17,13 @@ namespace Server.Services
         /// </summary>
         /// <param name="number">card number in any format</param>
         /// <returns>Return <see langword="true"/> if card was emmited in Alfabank </returns>
-        bool CheckCardEmmiter(string number);
+        bool CheckCardIssuer(string number);
 
         /// <summary>
         /// Extract card number
         /// </summary>
         /// <param name="number">card number in any format</param>
-        /// <returns>Return 0 is card is invalid, 1 if card is mastercard, 2 is visa, 3 is maestro, 4 is visa electon</returns>
-        int CardTypeExtract(string number);
+        /// <returns>Card payment system</returns>
+        CardPaymentSystem CardPaymentSystemExtract(string number);
     }
 }
