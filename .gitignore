@@ -3,5 +3,4 @@ obj
 bin
 log
 node_modules
-.vscode
 lcov.info
