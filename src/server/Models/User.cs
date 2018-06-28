@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Server.Exceptions;
 
 namespace Server.Models
 {
@@ -11,10 +12,12 @@ namespace Server.Models
         public User(string userName)
         {
             // TODO return own Exception class
-            if (string.IsNullOrEmpty(userName)) throw new Exception("username is null or empty");
+            if (string.IsNullOrWhiteSpace(userName))
+                throw new UserDataException("username is null or empty", userName);
 
             UserName = userName;
         }
+
         /// <summary>
         /// Getter and setter username of the user for login
         /// </summary>
@@ -29,7 +32,8 @@ namespace Server.Models
         /// Added new card to list
         /// </summary>
         /// <param name="shortCardName"></param>
-        public Card AddOpenNewCard(string shortCardName) => throw new System.NotImplementedException();
+        public Card OpenNewCard(string shortCardName)
+            => throw new System.NotImplementedException();
 
         // TODO add fields
     }
