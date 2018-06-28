@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Server.Services
@@ -56,7 +57,20 @@ namespace Server.Services
         /// </summary>
         /// <param name="cardNumber">card number in any format</param>
         /// <returns>Return <see langword="true"/> if card was issued in Alfabank </returns>
-        public bool CheckCardIssuer(string cardNumber) => throw new System.NotImplementedException();
+        public bool CheckCardIssuer(string cardNumber)
+        {
+            string number;
+            // validate card number format
+            if (string.IsNullOrEmpty(cardNumber) ||
+                (number = ValidateCardNumberFormat(cardNumber)) == null)
+            {
+                return false;
+            }
+
+            string bin = Regex.Match(cardNumber, "^.{0,6}").Value;
+            return Repository.AlfaBankBINs.Contains(bin);
+
+        }
 
         /// <summary>
         /// Extract card number
