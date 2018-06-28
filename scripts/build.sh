@@ -1,0 +1,1 @@
+dotnet build --source ../server/server
