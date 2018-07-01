@@ -19,11 +19,7 @@ namespace ServerTest
         [InlineData("5395 0290 0902 1990")]
         [InlineData("   4978 588211036789    ")]
         public void CheckCardNumberPassed(string value)
-        {
-            var result = cardService.CheckCardNumber(value);
-
-            Assert.True(result, $"{value} is not a valid card number");
-        }
+            => Assert.True(cardService.CheckCardNumber(value), $"{value} is not a valid card number");
 
         /// <summary>
         /// Check if this cards numbers is not valid
@@ -34,11 +30,7 @@ namespace ServerTest
         [InlineData("")]
         [InlineData(null)]
         public void CheckCardNumberFailed(string value)
-        {
-            var result = cardService.CheckCardNumber(value);
-
-            Assert.False(result, $"{value} is a valid card number");
-        }
+            => Assert.False(cardService.CheckCardNumber(value), $"{value} is a valid card number");
 
         /// <summary>
         /// Check if this cards numbers is not emitted by AlfaBank
@@ -47,11 +39,7 @@ namespace ServerTest
         [InlineData("5395029009021990")]
         [InlineData("4978588211036789")]
         public void CheckCardEmittedFailed(string value)
-        {
-            var result = cardService.CheckCardEmmiter(value);
-
-            Assert.False(result, $"{value} is a valid Alfabank card number");
-        }
+            => Assert.False(cardService.CheckCardEmmiter(value), $"{value} is a valid Alfabank card number");
 
         /// <summary>
         /// Check if this cards numbers is not emitted by AlfaBank
@@ -60,11 +48,7 @@ namespace ServerTest
         [InlineData("4083969259636239")]
         [InlineData("5101265622568232")]
         public void CheckCardEmittedPassed(string value)
-        {
-            var result = cardService.CheckCardEmmiter(value);
-
-            Assert.True(result, $"{value} is a not valid Alfabank card number");
-        }
+            => Assert.True(cardService.CheckCardEmmiter(value), $"{value} is a not valid Alfabank card number");
 
         /// <summary>
         /// Extract card type test
