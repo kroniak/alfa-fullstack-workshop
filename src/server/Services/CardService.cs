@@ -23,7 +23,7 @@ namespace Server.Services
 
             var cardNumber = CreateNormalizeCardNumber(number);
 
-            if (cardNumber.Length < 12 && cardNumber.Length > 19) return false;
+            if (cardNumber.Length < 12 || cardNumber.Length > 19) return false;
 
             var intNumbers = CreateIntCollectionFromString(cardNumber);
 
