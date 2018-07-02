@@ -1,6 +1,7 @@
 using System;
 using Xunit;
 using Server.Services;
+using Server.Infrastructure;
 
 namespace ServerTest
 {
@@ -53,29 +54,12 @@ namespace ServerTest
         /// <summary>
         /// Extract card type test
         /// </summary>
-        [Fact]
-        public void CardTypeExtractVisa()
-            => Assert.Equal(2, cardService.CardTypeExtract("4083969259636239"));
-
-        /// <summary>
-        /// Extract card type test
-        /// </summary>
-        [Fact]
-        public void CardTypeExtractMaster()
-            => Assert.Equal(1, cardService.CardTypeExtract("5308276794485221"));
-
-        /// <summary>
-        /// Extract card type test
-        /// </summary>
-        [Fact]
-        public void CardTypeExtractMaestro()
-            => Assert.Equal(3, cardService.CardTypeExtract("6762302693240520"));
-
-        /// <summary>
-        /// Extract card type test
-        /// </summary>
-        [Fact]
-        public void CardTypeExtractFail()
-            => Assert.Equal(0, cardService.CardTypeExtract("6762502693240520"));
+        [Theory]
+        [InlineData("4083969259636239", CardType.VISA)]
+        [InlineData("5308276794485221", CardType.MASTERCARD)]
+        [InlineData("6762302693240520", CardType.MAESTRO)]
+        [InlineData("6762502693240520", CardType.UNKNOWN)]
+        public void CardTypeExtract(string number, CardType type)
+            => Assert.Equal(type, cardService.CardTypeExtract(number));
     }
 }

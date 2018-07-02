@@ -5,10 +5,12 @@ namespace Server.Infrastructure
     /// <summary>
     /// Enum for card types
     /// </summary>
-    public enum CardType {
+    public enum CardType
+    {
+        UNKNOWN = 0,
         MASTERCARD = 1,
-        VISA,
-        MAESTRO,
-        MIR
+        VISA = 2,
+        MAESTRO = 3,
+        MIR = 4
     }
 }

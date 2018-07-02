@@ -1,6 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using Server.Exceptions;
+using Server.Infrastructure;
+using Server.Services;
 
 namespace Server.Models
 {
@@ -9,6 +13,14 @@ namespace Server.Models
     /// </summary>
     public class User
     {
+        private readonly IBusinessLogicService blService = new BusinessLogicService();
+
+        private IList<Card> _cards = new List<Card>();
+
+        /// <summary>
+        /// Create new User
+        /// </summary>
+        /// <param name="userName">Login of the user</param>
         public User(string userName)
         {
             // TODO return own Exception class
@@ -24,17 +36,59 @@ namespace Server.Models
         public string UserName { get; private set; }
 
         /// <summary>
+        /// Getter and setter Surname of the user
+        /// </summary>
+        /// <returns><see langword="string"/></returns>
+        public string Surname { get; set; }
+
+        /// <summary>
+        /// Getter and setter Firstname of the user
+        /// </summary>
+        /// <returns><see langword="string"/></returns>
+        public string Firstname { get; set; }
+
+        /// <summary>
+        /// Getter and setter Middlename of the user
+        /// </summary>
+        /// <returns><see langword="string"/></returns>
+        public string Middlename { get; set; }
+
+        /// <summary>
+        /// Getter and setter Bithday of the user
+        /// </summary>
+        /// <returns>Datetime</returns>
+        public DateTime? Birthday { get; set; }
+
+        /// <summary>
         /// Getter user card list
         /// </summary>
-        public List<Card> Cards { get; } = new List<Card>();
+        public IList<Card> Cards
+        {
+            get
+            {
+                return new ReadOnlyCollection<Card>(_cards);
+            }
+        }
 
         /// <summary>
         /// Added new card to list
         /// </summary>
         /// <param name="shortCardName"></param>
-        public Card OpenNewCard(string shortCardName)
-            => throw new System.NotImplementedException();
+        public Card OpenNewCard(string shortCardName, Currency currency, CardType cardType)
+        {
+            if (cardType == CardType.UNKNOWN)
+            {
+                throw new UserDataException("Wrong type card", cardType.ToString());
+            }
+            if (Cards.Any(x => x.CardName == shortCardName))
+            {
+                throw new UserDataException("Card is already exist", shortCardName);
+            }
 
-        // TODO add fields
+            var newCard = new Card(blService.GenerateNewCardNumber(cardType), shortCardName, cardType, currency);
+            _cards.Add(newCard);
+            blService.AddBonusOnOpen(newCard);
+            return newCard;
+        }
     }
 }

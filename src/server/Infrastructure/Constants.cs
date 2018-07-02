@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Server.Infrastructure
 {
@@ -7,6 +8,14 @@ namespace Server.Infrastructure
     /// </summary>
     public static class Constants
     {
+        public readonly static Dictionary<Currency, decimal> Currencies
+            = new Dictionary<Currency, decimal>
+        {
+            { Currency.RUR, 1M },
+            { Currency.USD, 62.68M },
+            { Currency.EUR, 72.64M }
+        };
+
         /// <summary>
         /// BIN references for alfabank cards
         /// </summary>

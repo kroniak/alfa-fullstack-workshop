@@ -1,3 +1,5 @@
+using Server.Infrastructure;
+
 namespace Server.Services
 {
     /// <summary>
@@ -23,7 +25,7 @@ namespace Server.Services
         /// Extract card number
         /// </summary>
         /// <param name="number">card number in any format</param>
-        /// <returns>Return 0 is card is invalid, 1 if card is mastercard, 2 is visa, 3 is maestro, 4 is visa electon</returns>
-        int CardTypeExtract(string number);
+        /// <returns>Return enum CardType</returns>
+        CardType CardTypeExtract(string number);
     }
 }

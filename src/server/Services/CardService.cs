@@ -50,8 +50,8 @@ namespace Server.Services
         /// Extract card number
         /// </summary>
         /// <param name="number">card number in any format</param>
-        /// <returns>Return 0 is card is invalid, 1 if card is mastercard, 2 is visa, 3 is maestro, 4 is mir</returns>
-        public int CardTypeExtract(string number)
+        /// <returns>Return enum CardType</returns>
+        public CardType CardTypeExtract(string number)
         {
             if (!CheckCardNumber(number)) return 0;
 
@@ -61,17 +61,17 @@ namespace Server.Services
             switch (firstDigit)
             {
                 case '2':
-                    return (int)CardType.MIR;
+                    return CardType.MIR;
                 case '4':
-                    return (int)CardType.VISA;
+                    return CardType.VISA;
                 case '5' when secondDigit == '0' || secondDigit > '5':
-                    return (int)CardType.MAESTRO;
+                    return CardType.MAESTRO;
                 case '5' when secondDigit >= '1' && secondDigit <= '5':
-                    return (int)CardType.MASTERCARD;
+                    return CardType.MASTERCARD;
                 case '6':
-                    return (int)CardType.MAESTRO;
+                    return CardType.MAESTRO;
                 default:
-                    return 0;
+                    return CardType.UNKNOWN;
             }
         }
 
