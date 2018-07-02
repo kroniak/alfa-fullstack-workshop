@@ -57,15 +57,14 @@
 ### Домашнее задание
 
 1. Создать web api контроллеры и endpoints на базе webapi шаблона
-2. Вся бизнес логика должна быт готова на данном этапре к вредрению баз данных и UI
+2. Вся бизнес логика должна быть готова на данном этапе к вредрению баз данных и UI
 3. Написаны тесты на все контроллеры, тесты обозначают поведение user stories по заведению карт и добавлению транзакций
 4. В webapi приложении реализована обработка ошибкок 400 и 500 на уровне middleware
 
 ### Материалы для изучени дома
 
 - https://1drv.ms/b/s!AswfoxlkvkXGgdI1UXmmiY0OvUXpcA - C# 6.0 in a Nutshell
-- https://metanit.com/sharp/tutorial/3.1.php - классы
-- https://metanit.com/sharp/tutorial/3.9.php - интерфейсы
-- https://metanit.com/sharp/tutorial/3.7.php - наследование
-- https://metanit.com/sharp/tutorial/2.14.php - обработка исключений
-- https://metanit.com/sharp/tutorial/3.17.php - создание классов исключений
+- https://metanit.com/sharp/aspnet5/2.1.php - класс StartUp
+- https://metanit.com/sharp/aspnet5/2.4.php - middleware
+- https://metanit.com/sharp/aspnet5/2.18.php - конвеер обработки запросов
+- https://enterprisecraftsmanship.com/2015/04/13/dto-vs-value-object-vs-poco/ - DTO vs POCO vs VO
