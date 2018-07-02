@@ -20,7 +20,7 @@ namespace Server.Services
             if (userName.Length > maxLengthUserName)
                 throw new UserDataException("username length is too long", UserExceptionTypes.UserName, userName);
 
-            string pattern = @"[a-z|0-9]+[a-z|0-9|\.|_|@|-]+[a-z|0-9]+";
+            string pattern = @"^[a-z|0-9]+[a-z|0-9|\.|_|@|-]+[a-z|0-9]+$";
 
             Match match = Regex.Match(userName, pattern, RegexOptions.IgnoreCase);
 

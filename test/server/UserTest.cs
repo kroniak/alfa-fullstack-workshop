@@ -22,6 +22,9 @@ namespace ServerTest
         [InlineData("   ")]
         [InlineData("qwe")]
         [InlineData("qwertyuiopasdfgh")]
+        [InlineData("%asdhldf")]
+        [InlineData("asdhldf%")]
+        [InlineData("%mail@ru")]
         [InlineData("_._._._")]
         public void CheckUserNameException(string login)
         {
