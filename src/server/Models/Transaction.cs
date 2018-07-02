@@ -1,3 +1,4 @@
+using System;
 using Server.Exceptions;
 using Server.Infrastructure;
 using Server.Services;
@@ -10,22 +11,33 @@ namespace Server.Models
     public class Transaction
     {
         /// <summary>
-        /// Sum in transaction
+        /// Public Time of transaction
+        /// </summary>
+        public DateTime DateTime { get; } = DateTime.Now;
+
+        /// <summary>
+        /// Source Sum in transaction
         /// </summary>
         /// <returns><see langword="decimal"/>representation of the sum transaction</returns>
-        public decimal Sum { get; }
+        public decimal FromSum { get; }
+
+        /// <summary>
+        /// Destination Sum in transaction
+        /// </summary>
+        /// <returns><see langword="decimal"/>representation of the sum transaction</returns>
+        public decimal ToSum { get; }
 
         /// <summary>
         /// Link to valid card
         /// </summary>
         /// <returns><see cref="Card"/></returns>
-        public Card CardFrom { get; }
+        public string CardFromNumber { get; }
 
         /// <summary>
         /// Link to valid card
         /// </summary>
         /// <returns><see cref="Card"/></returns>
-        public Card CardTo { get; }
+        public string CardToNumber { get; }
 
         private readonly IBusinessLogicService blService = new BusinessLogicService();
 
@@ -45,6 +57,10 @@ namespace Server.Models
                 throw new BusinessLogicException(TypeBusinessException.TRANSACTION,
                 "To card is null", "Не найдена карта на которую совершается перевод");
 
+            if (from.CardNumber == to.CardNumber)
+                throw new BusinessLogicException(TypeBusinessException.TRANSACTION,
+               "From card and to card is Equal", "Нельзя перевести на туже карту");
+
             if (sum <= 0)
                 throw new UserDataException("Transaction need more then 0", $"from {from.CardName} to {to.CardName}");
 
@@ -60,9 +76,10 @@ namespace Server.Models
                 throw new BusinessLogicException(TypeBusinessException.CARD,
                 "No money", $" Недостаточно средств на карте {from.CardNumber }");
 
-            CardFrom = from;
-            CardTo = to;
-            Sum = blService.GetConvertSum(sum, from.Currency, to.Currency);
+            CardFromNumber = from.CardNumber;
+            CardToNumber = to.CardNumber;
+            FromSum = sum;
+            ToSum = blService.GetConvertSum(sum, from.Currency, to.Currency);
         }
 
         /// <summary>
@@ -75,11 +92,16 @@ namespace Server.Models
             if (to == null)
                 throw new BusinessLogicException(TypeBusinessException.TRANSACTION, "To card is null",
                 "Не найдена карта на которую совершается перевод");
+
             if (sum <= 0)
                 throw new UserDataException("Sum of the transaction need more then 0", $"Add to {to.CardName}");
 
-            CardTo = to;
-            Sum = blService.GetConvertSum(sum, Currency.RUR, to.Currency);
+            if (!blService.CheckCardActivity(to))
+                throw new BusinessLogicException(TypeBusinessException.CARD,
+                "Card is expired", $"Карта {to.CardNumber } просрочена");
+
+            CardToNumber = to.CardNumber;
+            ToSum = blService.GetConvertSum(sum, Currency.RUR, to.Currency);
         }
     }
 }

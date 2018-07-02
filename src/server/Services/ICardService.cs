@@ -27,5 +27,12 @@ namespace Server.Services
         /// <param name="number">card number in any format</param>
         /// <returns>Return enum CardType</returns>
         CardType CardTypeExtract(string number);
+
+        /// <summary>
+        /// Utils method
+        /// </summary>
+        /// <param name="cardNumber">card number in any format</param>
+        /// <returns>Digits of a card number </returns>
+        string CreateNormalizeCardNumber(string cardNumber);
     }
 }

@@ -3,7 +3,7 @@ using Xunit;
 using Server.Services;
 using Server.Infrastructure;
 
-namespace ServerTest
+namespace ServerTest.ServicesTest
 {
     /// <summary>
     /// Tests for <see cref="CardService"/>>

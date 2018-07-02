@@ -87,15 +87,12 @@ namespace Server.Services
             return Constants.AlfaBINs.Any(x => number.StartsWith(x));
         }
 
-        #endregion
-
-        #region Utils
         /// <summary>
         /// Utils method
         /// </summary>
         /// <param name="cardNumber">card number in any format</param>
         /// <returns>Digits of a card number </returns>
-        private string CreateNormalizeCardNumber(string cardNumber)
+        public string CreateNormalizeCardNumber(string cardNumber)
         {
             var resultNumbers = new StringBuilder();
 
@@ -105,6 +102,9 @@ namespace Server.Services
             return resultNumbers.ToString();
         }
 
+        #endregion
+
+        #region Utils
         /// <summary>
         /// Utils method. Create collection of ints from valid card string
         /// </summary>

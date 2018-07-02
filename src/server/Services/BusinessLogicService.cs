@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Text;
 using Server.Exceptions;
 using Server.Infrastructure;
 using Server.Models;
@@ -47,7 +48,7 @@ namespace Server.Services
             if (card == null)
                 throw new BusinessLogicException(TypeBusinessException.CARD, "Card is null", "Карта не найдена");
 
-            return card.DTOpenCard.AddYears(card.Validity) <= DateTime.Today;
+            return !(card.DTOpenCard.AddYears(card.Validity) <= DateTime.Today);
         }
 
         /// <summary>
@@ -60,7 +61,9 @@ namespace Server.Services
             if (card == null)
                 throw new BusinessLogicException(TypeBusinessException.CARD, "Card is null", "Карта не найдена");
 
-            return card.Transactions.Sum(x => x.Sum);
+            var credit = card.Transactions.Where(x => x.CardToNumber == card.CardNumber).Sum(x => x.ToSum);
+            var debit = card.Transactions.Where(x => x.CardFromNumber == card.CardNumber).Sum(x => x.FromSum);
+            return credit - debit;
         }
 
         /// <summary>
@@ -70,7 +73,75 @@ namespace Server.Services
         /// <returns>Generated new card number</returns>
         public string GenerateNewCardNumber(CardType cardType)
         {
-            throw new System.NotImplementedException();
+            string startBin;
+
+            switch (cardType)
+            {
+                case CardType.MIR:
+                    startBin = "2";
+                    break;
+                case CardType.VISA:
+                    startBin = "4";
+                    break;
+                case CardType.MAESTRO:
+                    startBin = "6";
+                    break;
+                case CardType.MASTERCARD:
+                    startBin = "51";
+                    break;
+                default:
+                    throw new BusinessLogicException(TypeBusinessException.CARD, "Cannot create new card number");
+            }
+
+            startBin = Constants.AlfaBINs.First(x => x.StartsWith(startBin));
+            if (string.IsNullOrWhiteSpace(startBin))
+                throw new BusinessLogicException(TypeBusinessException.CARD, "Cannot create new card number");
+
+            // generate new CardNumber for user
+            return GenerateNewCardNumber(startBin);
+        }
+
+        private string GenerateNewCardNumber(string prefix, int length = 16)
+        {
+            string ccnumber = prefix;
+
+            while (ccnumber.Length < (length - 1))
+            {
+                double rnd = (new Random().NextDouble() * 1.0f - 0f);
+                ccnumber += Math.Floor(rnd * 10);
+            }
+
+            // reverse number and convert to int
+            var reversedCCnumberstring = ccnumber.ToCharArray().Reverse();
+            var reversedCCnumberList = reversedCCnumberstring.Select(c => Convert.ToInt32(c.ToString()));
+
+            // calculate sum
+            int sum = 0;
+            int pos = 0;
+            int[] reversedCCnumber = reversedCCnumberList.ToArray();
+
+            while (pos < length - 1)
+            {
+                int odd = reversedCCnumber[pos] * 2;
+
+                if (odd > 9)
+                    odd -= 9;
+
+                sum += odd;
+
+                if (pos != (length - 2))
+                    sum += reversedCCnumber[pos + 1];
+
+                pos += 2;
+            }
+
+            // calculate check digit
+            int checkdigit =
+                Convert.ToInt32((Math.Floor((decimal)sum / 10) + 1) * 10 - sum) % 10;
+
+            ccnumber += checkdigit;
+
+            return ccnumber;
         }
     }
 }

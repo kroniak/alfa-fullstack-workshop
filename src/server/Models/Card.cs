@@ -37,6 +37,9 @@ namespace Server.Models
             if (!cardService.CheckCardEmmiter(cardNumber))
                 throw new UserDataException("Wrong emitted cardNumber", cardNumber);
 
+            if (cardType == CardType.UNKNOWN)
+                throw new UserDataException("Wrong type card", cardType.ToString());
+
             if (dtOpenCard == null)
                 dtOpenCard = DateTime.Today;
 
@@ -46,11 +49,12 @@ namespace Server.Models
             if (validity <= 0 || validity > 5)
                 new UserDataException("Incorrect validaty. Must be [1-5] years", validity.ToString());
 
-            CardNumber = cardNumber;
+            CardNumber = cardService.CreateNormalizeCardNumber(cardNumber);
             CardName = cardName;
             DTOpenCard = dtOpenCard.Value;
             Validity = validity;
             Currency = currency;
+            CardType = cardType;
         }
 
         /// <summary>
@@ -88,23 +92,17 @@ namespace Server.Models
         /// <summary>
         /// List of card transactions
         /// </summary>
-        /// <returns><see cref="IList"/></returns>
-        public IList<Transaction> Transactions
-        {
-            get
-            {
-                return new ReadOnlyCollection<Transaction>(_transactions);
-            }
-        }
+        /// <returns><see cref="IList"/> of Transactions</returns>
+        public IList<Transaction> Transactions => new ReadOnlyCollection<Transaction>(_transactions);
 
         /// <summary>
         /// This method add new transaction to list of card transaction
         /// </summary>
-        /// <param name="newTransaction"></param>
-        public Transaction AddTransaction(Transaction newTransaction)
+        /// <param name="transaction"></param>
+        public Transaction AddTransaction(Transaction transaction)
         {
-            _transactions.Add(newTransaction);
-            return newTransaction;
+            _transactions.Add(transaction);
+            return transaction;
         }
     }
 }
