@@ -51,7 +51,7 @@ namespace ServerTest.ModelsTest
         {
             var user = new User("oleg@oleg.ru");
             var card = user.OpenNewCard("firstcard", Currency.RUR, CardType.VISA);
-            var actualCard = user.Cards.FirstOrDefault();
+            var actualCard = user.Cards.First();
 
             Assert.Equal(1, user.Cards.Count);
             Assert.Equal(CardType.VISA, card.CardType);

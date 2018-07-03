@@ -68,3 +68,4 @@
 - https://metanit.com/sharp/aspnet5/2.4.php - middleware
 - https://metanit.com/sharp/aspnet5/2.18.php - конвеер обработки запросов
 - https://enterprisecraftsmanship.com/2015/04/13/dto-vs-value-object-vs-poco/ - DTO vs POCO vs VO
+- https://github.com/moq/moq4 - Moq lib
