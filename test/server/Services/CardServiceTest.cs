@@ -1,8 +1,9 @@
 using System;
 using Xunit;
 using Server.Services;
+using Server.Infrastructure;
 
-namespace ServerTest
+namespace ServerTest.ServicesTest
 {
     /// <summary>
     /// Tests for <see cref="CardService"/>>
@@ -19,11 +20,7 @@ namespace ServerTest
         [InlineData("5395 0290 0902 1990")]
         [InlineData("   4978 588211036789    ")]
         public void CheckCardNumberPassed(string value)
-        {
-            var result = cardService.CheckCardNumber(value);
-
-            Assert.True(result, $"{value} is not a valid card number");
-        }
+            => Assert.True(cardService.CheckCardNumber(value), $"{value} is not a valid card number");
 
         /// <summary>
         /// Check if this cards numbers is not valid
@@ -34,11 +31,7 @@ namespace ServerTest
         [InlineData("")]
         [InlineData(null)]
         public void CheckCardNumberFailed(string value)
-        {
-            var result = cardService.CheckCardNumber(value);
-
-            Assert.False(result, $"{value} is a valid card number");
-        }
+            => Assert.False(cardService.CheckCardNumber(value), $"{value} is a valid card number");
 
         /// <summary>
         /// Check if this cards numbers is not emitted by AlfaBank
@@ -47,11 +40,7 @@ namespace ServerTest
         [InlineData("5395029009021990")]
         [InlineData("4978588211036789")]
         public void CheckCardEmittedFailed(string value)
-        {
-            var result = cardService.CheckCardEmmiter(value);
-
-            Assert.False(result, $"{value} is a valid Alfabank card number");
-        }
+            => Assert.False(cardService.CheckCardEmmiter(value), $"{value} is a valid Alfabank card number");
 
         /// <summary>
         /// Check if this cards numbers is not emitted by AlfaBank
@@ -60,38 +49,17 @@ namespace ServerTest
         [InlineData("4083969259636239")]
         [InlineData("5101265622568232")]
         public void CheckCardEmittedPassed(string value)
-        {
-            var result = cardService.CheckCardEmmiter(value);
-
-            Assert.True(result, $"{value} is a not valid Alfabank card number");
-        }
+            => Assert.True(cardService.CheckCardEmmiter(value), $"{value} is a not valid Alfabank card number");
 
         /// <summary>
         /// Extract card type test
         /// </summary>
-        [Fact]
-        public void CardTypeExtractVisa()
-            => Assert.Equal(2, cardService.CardTypeExtract("4083969259636239"));
-
-        /// <summary>
-        /// Extract card type test
-        /// </summary>
-        [Fact]
-        public void CardTypeExtractMaster()
-            => Assert.Equal(1, cardService.CardTypeExtract("5308276794485221"));
-
-        /// <summary>
-        /// Extract card type test
-        /// </summary>
-        [Fact]
-        public void CardTypeExtractMaestro()
-            => Assert.Equal(3, cardService.CardTypeExtract("6762302693240520"));
-
-        /// <summary>
-        /// Extract card type test
-        /// </summary>
-        [Fact]
-        public void CardTypeExtractFail()
-            => Assert.Equal(0, cardService.CardTypeExtract("6762502693240520"));
+        [Theory]
+        [InlineData("4083969259636239", CardType.VISA)]
+        [InlineData("5308276794485221", CardType.MASTERCARD)]
+        [InlineData("6762302693240520", CardType.MAESTRO)]
+        [InlineData("6762502693240520", CardType.UNKNOWN)]
+        public void CardTypeExtract(string number, CardType type)
+            => Assert.Equal(type, cardService.CardTypeExtract(number));
     }
 }
