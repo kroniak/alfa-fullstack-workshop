@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using Server.Infrastructure;
 using Server.Models;
 using Server.Services;
+using Server.ViewModels;
 
 namespace Server.Data
 {
@@ -15,6 +17,14 @@ namespace Server.Data
         }
 
         public static User GenerateFakeUser() => new User("admin@admin.net");
+
+        public Card GenerateFakeCard(CardDto card) => new Card
+        {
+            CardNumber = _businessLogicService.GenerateNewCardNumber(CardType.MAESTRO),
+            CardName = card.Name,
+            Currency = (Currency)card.Currency,
+            CardType = (CardType)card.Type
+        };
 
         public IEnumerable<Card> GenerateFakeCards()
         {    // create fake cards
