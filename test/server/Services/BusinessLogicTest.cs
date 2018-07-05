@@ -10,7 +10,8 @@ namespace ServerTest.ServicesTest
 {
     public class BusinessLogicTest
     {
-        private readonly IBusinessLogicService _businessLogicService = new BusinessLogicService(new CardService());
+        private readonly IBusinessLogicService _businessLogicService =
+            new BusinessLogicService(new CardService());
 
         [Theory]
         [InlineData(Currency.RUR, Currency.USD, 1000, "15.954052329291640076579451181")]
@@ -37,14 +38,6 @@ namespace ServerTest.ServicesTest
             Assert.Equal(10M, _businessLogicService.GetBalanceOfCard(card));
         }
 
-        // [Fact]
-        // public void AddBonusOnOpenException()
-        //     => Assert.Throws<BusinessLogicException>(() => _businessLogicService.AddBonusOnOpen(null));
-
-        // [Fact]
-        // public void CheckCardActivityException()
-        //     => Assert.Throws<BusinessLogicException>(() => _businessLogicService.CheckCardActivity(null));
-
         [Fact]
         public void CheckCardActivityPasses()
         {
@@ -58,10 +51,5 @@ namespace ServerTest.ServicesTest
             };
             Assert.False(_businessLogicService.CheckCardActivity(card));
         }
-
-        // [Fact]
-        // public void GetBalanceOfCardException()
-        //     => Assert.Throws<BusinessLogicException>(() => _businessLogicService.GetBalanceOfCard(null));
-
     }
 }
