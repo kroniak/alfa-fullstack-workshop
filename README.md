@@ -4,8 +4,6 @@
 
 ## План практики
 
-- 03.07 Создание REST сервисов на базе ASP.NET Core
-
 - 05.07 Проектирование баз данных и EF Core
 
 - 10.07 ES2015 - современные стандарты JavaScript
@@ -50,22 +48,21 @@
     - Могу перевести деньги со страницы транзакций по карте
     - Могу видеть информацию о новой транзакции по карте без обновления страницы
 
-## Часть 4
+## Часть 5
 
-### Тема: Создание REST сервисов на базе ASP.NET Core
+### Тема: 05.07 Проектирование баз данных и EF Core
 
 ### Домашнее задание
 
-1. Создать web api контроллеры и endpoints на базе webapi шаблона
-2. Вся бизнес логика должна быть готова на данном этапе к вредрению баз данных и UI
-3. Написаны тесты на все контроллеры, тесты обозначают поведение user stories по заведению карт и добавлению транзакций
-4. В webapi приложении реализована обработка ошибкок 400 и 500 на уровне middleware
+1. Написать новый репозиторий для работы с базой данных, а не с памятью
+2. Доработать класс контекста для поддержки моделей, индексов и пр.
+3. Написать mock для нового репозитория
+4. Настроить отдачу Dto в контроллерах через Automapper
 
 ### Материалы для изучени дома
 
 - https://1drv.ms/b/s!AswfoxlkvkXGgdI1UXmmiY0OvUXpcA - C# 6.0 in a Nutshell
-- https://metanit.com/sharp/aspnet5/2.1.php - класс StartUp
-- https://metanit.com/sharp/aspnet5/2.4.php - middleware
-- https://metanit.com/sharp/aspnet5/2.18.php - конвеер обработки запросов
-- https://enterprisecraftsmanship.com/2015/04/13/dto-vs-value-object-vs-poco/ - DTO vs POCO vs VO
-- https://github.com/moq/moq4 - Moq lib
+- https://1drv.ms/b/s!AswfoxlkvkXGgdI84VDjm-XOPT_qBg - ASP.NET Core 2.1
+- https://1drv.ms/b/s!AswfoxlkvkXGgdI_lUUqPIDmnQtFFw - Programming Entity Framework - Code First
+- https://metanit.com/sharp/entityframeworkcore/ - EF Core
+- https://github.com/AutoMapper/AutoMapper - AutoMapper
