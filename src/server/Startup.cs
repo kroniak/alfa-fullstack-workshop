@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Server.Data;
+using Server.Middlewares;
 using Server.Services;
 
 namespace Server
@@ -20,8 +21,10 @@ namespace Server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<ICardService, CardService>();
+            services.AddScoped<IBusinessLogicService, BusinessLogicService>();
             services.AddSingleton<IBankRepository, InMemoryBankRepository>();
-            services.AddTransient<ICardService, CardService>();
+
             services.AddMvc();
         }
 
@@ -33,6 +36,7 @@ namespace Server
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseMiddleware<HttpStatusCodeExceptionMiddleware>();
             app.UseMvc();
         }
     }

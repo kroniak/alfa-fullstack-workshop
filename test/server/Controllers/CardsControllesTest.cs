@@ -12,18 +12,18 @@ namespace ServerTest.ControllersTest
     public class CardsControllerTest
     {
         private readonly ICardService _cardService = new CardService();
+        private readonly IBusinessLogicService _businessLogicService = new BusinessLogicService(new CardService());
 
         [Fact]
         public void GetCardsPassed()
         {
             // Arrange
             var mock = new Mock<IBankRepository>();
-            var mockUser = FakeDataGenerator.GenerateFakeUser();
-            var mockCards = FakeDataGenerator.GenerateFakeCardsToUser(mockUser);
+            var mockCards = new FakeDataGenerator(_businessLogicService).GenerateFakeCards();
 
             mock.Setup(r => r.GetCards()).Returns(mockCards);
 
-            var controller = new CardsController(mock.Object, _cardService);
+            var controller = new CardsController(mock.Object, _cardService, _businessLogicService);
 
             // Test
             var cards = controller.Get();
