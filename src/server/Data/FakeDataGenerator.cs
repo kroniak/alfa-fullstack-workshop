@@ -26,6 +26,43 @@ namespace Server.Data
             CardType = (CardType)card.Type
         };
 
+        public Card GenerateFakeCard(string number) => new Card
+        {
+            CardNumber = number,
+            CardName = "mu card",
+            Currency = Currency.RUR,
+            CardType = CardType.MAESTRO
+        };
+
+        public IEnumerable<Transaction> GenerateFakeTransactions(Card card)
+        {
+            var transactions = new List<Transaction>
+            {
+                new Transaction{
+                    CardFromNumber = card.CardNumber,
+                    CardToNumber = "4083969259636239",
+                    Sum = 10
+                },
+                new Transaction{
+                    CardFromNumber = card.CardNumber,
+                    CardToNumber = "4083969259636239",
+                    Sum = 10
+                },
+                new Transaction{
+                    CardFromNumber = card.CardNumber,
+                    CardToNumber = "4083969259636239",
+                    Sum = 10
+                },
+                new Transaction{
+                    CardFromNumber = card.CardNumber,
+                    CardToNumber = "4083969259636239",
+                    Sum = 10
+                }
+            };
+
+            return transactions;
+        }
+
         public IEnumerable<Card> GenerateFakeCards()
         {    // create fake cards
             var cards = new List<Card>

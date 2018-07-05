@@ -72,5 +72,27 @@ namespace ServerTest.ControllersTest
             Assert.Equal(cardDto.Currency, resultCard.Currency);
             Assert.Equal(cardDto.Type, resultCard.Type);
         }
+
+        [Fact]
+        public void PutCard405()
+        {
+            var mock = new Mock<IBankRepository>();
+            var controller = new CardsController(mock.Object, _cardService, _businessLogicService);
+
+            var result = (StatusCodeResult)controller.Put();
+
+            Assert.Equal(405, result.StatusCode);
+        }
+
+        [Fact]
+        public void DeleteCard405()
+        {
+            var mock = new Mock<IBankRepository>();
+            var controller = new CardsController(mock.Object, _cardService, _businessLogicService);
+
+            var result = (StatusCodeResult)controller.Delete();
+
+            Assert.Equal(405, result.StatusCode);
+        }
     }
 }
