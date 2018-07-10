@@ -12,6 +12,8 @@ using Microsoft.Extensions.Options;
 using Server.Core;
 using Server.Data;
 using Server.Middlewares;
+using Server.Models;
+using Server.Repository;
 using Server.Services;
 
 namespace Server
@@ -28,13 +30,16 @@ namespace Server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<ICardService, CardService>();
-            services.AddScoped<IBusinessLogicService, BusinessLogicService>();
-            services.AddSingleton<IBankRepository, InMemoryBankRepository>();
-
             services.AddDbContext<SQLContext>(options =>
                             options.UseSqlite(Configuration.GetSection("connectionStrings").
                                 GetChildren().Where(x=>x.Key=="sqlite").FirstOrDefault().Value));
+            services.AddScoped<ICardService, CardService>();
+            services.AddScoped<IBusinessLogicService, BusinessLogicService>();
+            services.AddScoped<IRepository<Card>, Repository<Card>>();
+            services.AddScoped<IRepository<Transaction>, Repository<Transaction>>();
+            services.AddScoped<IBusinessLogicService, BusinessLogicService>();
+            services.AddSingleton<IBankRepository, BankRepository>();
+
 
             services.AddMvc();
         }
