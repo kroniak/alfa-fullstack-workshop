@@ -4,8 +4,6 @@
 
 ## План практики
 
-- 05.07 Проектирование баз данных и EF Core
-
 - 10.07 ES2015 - современные стандарты JavaScript
 
 - 12.07 Создание интерфейсов на основе ReactJS
@@ -47,23 +45,18 @@
     - Могу перевести деньги со страницы транзакций по карте
     - Могу видеть информацию о новой транзакции по карте без обновления страницы
 
-## Часть 5
+## Часть 6
 
-### Тема: Проектирование баз данных и EF Core
+### Тема: ES2015 - современные стандарты JavaScript
 
 ### Домашнее задание
 
-1. Написать новый репозиторий для работы с базой данных, а не с памятью
-2. Доработать класс контекста для поддержки моделей, индексов и пр.
-3. Написать mock для нового репозитория
-4. Настроить отдачу Dto в контроллерах через Automapper
-5. Почистить класс User, сделать think class
-6. Дописать и отрефакторить тесты, добиться покрытия не менее 50%
+1. Доработать серверную часть приложения до идеального состояния, прояснить все вопросы связанные с серверной частью
+2. Написать модуль с функциями по получению данных с API сервера через Promises
 
 ### Материалы для изучени дома
 
-- https://1drv.ms/b/s!AswfoxlkvkXGgdI1UXmmiY0OvUXpcA - C# 6.0 in a Nutshell
-- https://1drv.ms/b/s!AswfoxlkvkXGgdI84VDjm-XOPT_qBg - ASP.NET Core 2.1
-- https://1drv.ms/b/s!AswfoxlkvkXGgdI_lUUqPIDmnQtFFw - Programming Entity Framework - Code First
-- https://metanit.com/sharp/entityframeworkcore/ - EF Core
-- https://github.com/AutoMapper/AutoMapper - AutoMapper
+- https://1drv.ms/b/s!AswfoxlkvkXGgdJGawxKx_gnPC-bYg - ES6 и не только
+- https://learn.javascript.ru/es-modern - ES2015
+- https://github.com/axios/axios - axiosjs
+- https://quokkajs.com/ - Quokka JS
