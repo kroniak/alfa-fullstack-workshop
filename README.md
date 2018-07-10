@@ -56,7 +56,7 @@
 
 ### Материалы для изучени дома
 
-- https://1drv.ms/b/s!AswfoxlkvkXGgdI1UXmmiY0OvUXpcA - C# 6.0 in a Nutshell
+- https://1drv.ms/b/s!AswfoxlkvkXGgdJGawxKx_gnPC-bYg - ES6 и не только
 - https://learn.javascript.ru/es-modern - ES2015
 - https://github.com/axios/axios - axiosjs
 - https://quokkajs.com/ - Quokka JS
