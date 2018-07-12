@@ -15,7 +15,7 @@ namespace Server.Repository
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         private SQLContext _context;
-        private DbSet<TEntity> _collection;
+        protected DbSet<TEntity> _collection;
         public Repository(SQLContext context)
         {
             _context = context;
@@ -37,15 +37,6 @@ namespace Server.Repository
 
         public IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> predicate)
             => _collection.Where(predicate).ToList();
-
-        public IEnumerable<TEntity> GetWithInclude(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includeObjects)
-        {
-            var query = _collection.AsNoTracking();
-            return includeObjects
-                .Aggregate(query, (current, includeProperty) => current.Include(includeProperty))
-                .Where(predicate)
-                .ToList();
-        }
 
         public IEnumerable<TEntity> GetAll() => _collection.ToList();
 

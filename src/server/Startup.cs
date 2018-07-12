@@ -32,13 +32,12 @@ namespace Server
         {
             services.AddDbContext<SQLContext>(options =>
                             options.UseSqlite(Configuration.GetSection("connectionStrings").
-                                GetChildren().Where(x=>x.Key=="sqlite").FirstOrDefault().Value));
+                                GetChildren().Where(x => x.Key == "sqlite").FirstOrDefault().Value));
             services.AddScoped<ICardService, CardService>();
             services.AddScoped<IBusinessLogicService, BusinessLogicService>();
-            services.AddScoped<IRepository<Card>, Repository<Card>>();
+            services.AddScoped<ICardRepository, CardRepository>();
             services.AddScoped<IRepository<Transaction>, Repository<Transaction>>();
-            services.AddScoped<IBusinessLogicService, BusinessLogicService>();
-            services.AddSingleton<IBankRepository, BankRepository>();
+            services.AddScoped<IBankRepository, BankRepository>();
 
 
             services.AddMvc();
