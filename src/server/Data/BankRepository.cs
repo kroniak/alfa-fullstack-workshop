@@ -12,13 +12,13 @@ namespace Server.Data
 {
     public class BankRepository : IBankRepository
     {
-        private IRepository<Card> _cardRepository;
+        private ICardRepository _cardRepository;
         private IRepository<Transaction> _transactionRepository;
         private ICardService _cardService;
         private IBusinessLogicService _businessLogicService;
 
         private readonly User currentUser;
-        public BankRepository(IRepository<Card> cardRepository,
+        public BankRepository(ICardRepository cardRepository,
                               IRepository<Transaction> transactionRepository,
                               ICardService cardService,
                               IBusinessLogicService businessLogicService)
@@ -32,9 +32,8 @@ namespace Server.Data
         public Card GetCard(string cardNumber)
         {
             var card = _cardRepository
-                         .GetWithInclude(
-                             c => c.CardNumber == _cardService.CreateNormalizeCardNumber(cardNumber),
-                             c => c.Transactions)
+                         .GetWithTransactions(
+                             c => c.CardNumber == _cardService.CreateNormalizeCardNumber(cardNumber))
                          .FirstOrDefault();
 
             if (card == null)
