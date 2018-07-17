@@ -7,6 +7,7 @@ import History from "./history";
 import Payment from "../payment/payment";
 
 import { fetchCards } from "../../actions/cards";
+import { fetchTransactions } from "../../actions/transactions";
 import { getActiveCard, isExpiredCard } from "../../selectors/cards";
 import { getTransactionsByDays } from "../../selectors/transactions";
 
@@ -15,6 +16,7 @@ const Workspace = styled.div`
   flex-wrap: wrap;
   max-width: 1200px;
   padding: 15px;
+  justify-content: center;
 `;
 
 class Home extends Component {
@@ -23,7 +25,14 @@ class Home extends Component {
   }
 
   render() {
-    const { transactions, activeCard, transactionsIsLoading } = this.props;
+    const {
+      transactions,
+      activeCard,
+      transactionsIsLoading,
+      transactionsSkip,
+      transactionsCount,
+      fetchTransactions
+    } = this.props;
     if (activeCard)
       return (
         <Workspace>
@@ -36,6 +45,9 @@ class Home extends Component {
             transactions={transactions}
             activeCard={activeCard}
             isLoading={transactionsIsLoading}
+            skip={transactionsSkip}
+            count={transactionsCount}
+            buttonClick={fetchTransactions}
           />
           <Payment />
         </Workspace>
@@ -47,16 +59,19 @@ class Home extends Component {
 Home.PropTypes = {
   transactions: PropTypes.arrayOf(PropTypes.object),
   activeCard: PropTypes.object,
-  transactionsIsLoading: PropTypes.bool.isRequired
+  transactionsIsLoading: PropTypes.bool.isRequired,
+  transactionsSkip: PropTypes.number.isRequired
 };
 
 const mapStateToProps = state => ({
   transactions: getTransactionsByDays(state),
   activeCard: getActiveCard(state),
-  transactionsIsLoading: state.transactions.isLoading
+  transactionsIsLoading: state.transactions.isLoading,
+  transactionsSkip: state.transactions.skip,
+  transactionsCount: state.transactions.count
 });
 
 export default connect(
   mapStateToProps,
-  { fetchCards }
+  { fetchCards, fetchTransactions }
 )(Home);

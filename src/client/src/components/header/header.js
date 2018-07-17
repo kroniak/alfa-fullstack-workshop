@@ -6,7 +6,7 @@ import UserInfo from "./user-info";
 
 import { getActiveCard } from "../../selectors/cards";
 
-const HeaderLayout = styled.header`
+const HeaderLayout = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;

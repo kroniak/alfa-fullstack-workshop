@@ -45,7 +45,11 @@ const separateByDates = (transactions, activeCard) => {
         from,
         to
       }),
-      sum
+      sum,
+      debit: creditDebitFlag({
+        from,
+        to
+      })
     });
 
     return result;

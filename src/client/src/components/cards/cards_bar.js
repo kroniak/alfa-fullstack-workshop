@@ -10,11 +10,9 @@ import Card from "./card";
 import CardAdd from "./card_add";
 
 const Layout = styled.div`
-  width: 310px;
   display: flex;
   flex-direction: column;
   position: relative;
-  background-color: #242424;
   padding: 20px;
 `;
 
