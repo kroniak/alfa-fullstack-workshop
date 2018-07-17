@@ -37,6 +37,12 @@ export default (state = initialState, { type, payload }) => {
     case actions.CARDS_FETCH_FAILED:
       return initialState;
 
+    case actions.ACTIVE_CARD_CHANGED:
+      return {
+        ...state,
+        skip: 0
+      };
+
     default:
       return state;
   }
