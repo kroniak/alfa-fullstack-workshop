@@ -21,29 +21,45 @@ body {
 `;
 
 const Wallet = styled.div`
-  display: flex;
+  min-width: 798px;
   min-height: 863px;
+  display: grid;
+  grid-template-rows: 74px 1fr;
+  grid-template-columns: auto 1fr;
   background-color: #fcfcfc;
   width: 100%;
   margin: 0px auto;
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.15);
-  @media (min-width: 1500px) {
-    /* вот когда он больше сильно его разматывает по краям, не должно этого быть */
-    width: 1370px;
-  }
-  min-width: 1280px;
 `;
 
-const CardPane = styled.div`
-  flex-grow: 1;
+const CardsBarWrapper = styled.aside`
+  background-color: #242424;
+  grid-row: 1/-1;
+  grid-column: 1;
+  width: 310px;
+`;
+
+const HeaderWrapper = styled.header`
+  grid-column: 2/-1;
+  grid-row: 1;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16);
+`;
+
+const HomeWrapper = styled.main`
+  grid-row: 2;
+  grid-column: 2;
 `;
 
 export default _ => (
   <Wallet>
-    <CardsBar />
-    <CardPane>
+    <CardsBarWrapper>
+      <CardsBar />
+    </CardsBarWrapper>
+    <HeaderWrapper>
       <Header />
+    </HeaderWrapper>
+    <HomeWrapper>
       <Home />
-    </CardPane>
+    </HomeWrapper>
   </Wallet>
 );

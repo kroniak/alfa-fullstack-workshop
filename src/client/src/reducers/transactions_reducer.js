@@ -3,7 +3,9 @@ import * as actions from "../actions/types";
 const initialState = {
   data: [],
   error: null,
-  isLoading: true
+  isLoading: true,
+  skip: 0,
+  count: 0
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -17,15 +19,18 @@ export default (state = initialState, { type, payload }) => {
     case actions.TRANS_FETCH_SUCCESS:
       return {
         ...state,
-        data: payload,
+        data: payload.data,
+        skip: payload.skip,
         error: null,
-        isLoading: false
+        isLoading: false,
+        count: payload.data.length
       };
 
     case actions.TRANS_FETCH_FAILED:
       return {
         ...state,
-        error: payload,
+        error: payload.error,
+        skip: payload.skip,
         isLoading: false
       };
 

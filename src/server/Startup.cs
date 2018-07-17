@@ -39,7 +39,6 @@ namespace Server
             services.AddScoped<IRepository<Transaction>, Repository<Transaction>>();
             services.AddScoped<IBankRepository, BankRepository>();
 
-
             services.AddMvc();
         }
 

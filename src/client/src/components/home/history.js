@@ -22,6 +22,16 @@ const HistoryTitle = styled.div`
   text-transform: uppercase;
 `;
 
+const HistoryButtonBar = styled.div`
+  padding-left: 12px;
+  color: rgba(0, 0, 0, 0.4);
+  font-size: 15px;
+  line-height: 30px;
+  text-transform: uppercase;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+`;
+
 const HistoryItem = styled.div`
   display: flex;
   justify-content: space-around;
@@ -70,7 +80,21 @@ const HistoryItemSum = styled.div`
   color: ${({ color }) => color};
 `;
 
-const History = ({ transactions, activeCard, isLoading }) => {
+const HistoryButton = styled.span`
+  align-self: center;
+  justify-self: center;
+  cursor: pointer;
+  color: ${({ isActive }) => (isActive ? "#black" : "rgba(0, 0, 0, 0.05)")};
+`;
+
+const History = ({
+  transactions,
+  activeCard,
+  isLoading,
+  skip,
+  count,
+  buttonClick
+}) => {
   const renderCardsHistory = () => {
     if (isLoading) return <HistoryItem>Загрузка...</HistoryItem>;
 
@@ -116,14 +140,45 @@ const History = ({ transactions, activeCard, isLoading }) => {
           <HistoryItemIcon bankSmLogoUrl={activeCard.theme.bankSmLogoUrl} />
           <HistoryItemTitle>{item.title}</HistoryItemTitle>
           <HistoryItemTime>{item.hhmm}</HistoryItemTime>
-          <HistoryItemSum>
+          <HistoryItemSum color={item.debit > 0 ? "green" : "red"}>
+            {item.debit > 0 ? "+" : "-"}
             {`${Number(item.sum.toFixed(2))} ${activeCard.currencySign}`}
           </HistoryItemSum>
         </HistoryItem>
       );
     });
 
-  return <HistoryLayout>{renderCardsHistory()}</HistoryLayout>;
+  const renderSkipButton = (skip, count) => {
+    const renderButton = (nextSkip, link, isActive) => (
+      <HistoryButton
+        onClick={
+          isActive ? () => buttonClick(activeCard.number, nextSkip) : null
+        }
+        isActive={isActive}
+      >
+        {link}
+      </HistoryButton>
+    );
+
+    let isActive = { prev: false, next: false };
+
+    if (count === 10) isActive.next = true;
+    if (skip >= 10) isActive.prev = true;
+
+    return (
+      <HistoryButtonBar>
+        {renderButton(skip - 10, "<<<<<<", isActive.prev)}
+        {renderButton(skip + 10, ">>>>>>", isActive.next)}
+      </HistoryButtonBar>
+    );
+  };
+
+  return (
+    <HistoryLayout>
+      {renderSkipButton(skip, count)}
+      {renderCardsHistory()}
+    </HistoryLayout>
+  );
 };
 
 export default History;
