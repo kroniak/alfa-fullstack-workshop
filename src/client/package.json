@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "antd": "^2.13.6",
-    "axios": "^0.16.2",
+    "axios": "^0.18.1",
     "card-info": "git+https://github.com/kroniak/card-info.git",
     "moment": "^2.19.1",
     "prop-types": "^15.6.0",
